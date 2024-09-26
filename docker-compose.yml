@@ -1,0 +1,12 @@
+name: planner-backend-server-development
+
+services:
+  postgres:
+    container_name: planner-backend-postgres-development
+    image: bitnami/postgresql:13.16.0
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USERNAME=planner_backend_development
+      - POSTGRESQL_PASSWORD=planner_backend_development
+      - POSTGRESQL_DATABASE=planner_backend_development
