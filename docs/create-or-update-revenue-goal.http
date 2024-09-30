@@ -1,0 +1,70 @@
+POST http://localhost:3000/api/user/create-or-update-revenue-goal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
+
+{
+    "userId": "cm1p4d7e50000q5uhism7zp02",
+    "month": "JANUARY",
+    "dailyGoal": "1500"
+}
+
+
+###
+
+POST http://localhost:3000/api/user/create-or-update-revenue-goal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
+
+{
+    "userId": "cm1p4d7e50000q5uhism7zp02",
+    "month": "FEBRUARY",
+    "dailyGoal": "1500",
+    "monthlyGoal": "45000",
+    "action": {
+        "description": "Lançar uma nova campanha de marketing para aumentar as vendas"
+    }
+}
+
+
+
+###
+
+POST http://localhost:3000/api/user/create-or-update-revenue-goal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
+
+{
+    "userId": "cm1p4d7e50000q5uhism7zp02",
+    "month": "JANUARY",
+    "monthlyGoal": "15000"
+}
+
+
+###
+
+POST http://localhost:3000/api/user/create-or-update-revenue-goal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
+    
+{
+    "userId": "cm1p4d7e50000q5uhism7zp02",
+    "month": "JANUARY",
+    "action": {
+        "description": "Lançar uma nova campanha de marketing para aumentar as vendas"
+    }
+}
+
+
+###
+
+POST http://localhost:3000/api/user/create-or-update-revenue-goal
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
+    
+{
+    "userId": "cm1p4d7e50000q5uhism7zp02",
+    "month": "JANUARY",
+    "action": {
+        "description": "Fazer uma promoção de 50% de desconto em todos os produtos"
+    }
+}
