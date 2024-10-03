@@ -15,7 +15,7 @@ export const createDailyTask: FastifyPluginAsyncZod = async app => {
       preHandler: [middleware],
     },
     async (req, reply) => {
-      const { userId, day, title, description } = req.body
+      const { id, userId, day, title, description } = req.body
 
       const userExists = await prisma.user.findUnique({
         where: {
@@ -27,6 +27,31 @@ export const createDailyTask: FastifyPluginAsyncZod = async app => {
         reply.code(HTTP_STATUS_CODE.BAD_REQUEST).send({
           message: 'User not found',
         })
+        return
+      }
+
+      const dailyTaskExists = await prisma.postPlan.findUnique({
+        where: {
+          id: id || -1,
+        },
+      })
+
+      if (dailyTaskExists) {
+        await prisma.postPlan.update({
+          where: {
+            id: dailyTaskExists.id,
+            userId,
+          },
+          data: {
+            title,
+            description,
+          },
+        })
+
+        reply.code(HTTP_STATUS_CODE.CREATED).send({
+          dailyTask: dailyTaskExists,
+        })
+
         return
       }
 

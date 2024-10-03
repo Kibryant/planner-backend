@@ -11,13 +11,14 @@ import {
 import { createDailyTask } from './routes/create-daily-task'
 import { getDailyTasks } from './routes/get-daily-tasks'
 import { getDailyTasksByDay } from './routes/get-daily-tasks-by-day'
-import { createOrUpdateRevenueGoal } from './routes/create-or-update-revenue-goal'
-import { getRevenueGoalsByMonth } from './routes/get-revenue-goals-by-month'
 import { adminLogin } from './routes/admin-login'
 import { createUser } from './routes/create-user'
 import { getUsers } from './routes/get-users'
 import { deleteUser } from './routes/delete-user'
 import { updateUser } from './routes/update-user'
+import { startCronJobs } from './lib/cron-job'
+import { completeDailyTask } from './routes/complete-daily-taks'
+import { getWeeklyProgress } from './routes/get-weekly-progess'
 
 const app = Fastify({
   logger: true,
@@ -45,10 +46,10 @@ const start = async () => {
 
     app.register(userLogin, { prefix: '/api/user' })
     app.register(createDailyTask, { prefix: '/api/user' })
+    app.register(completeDailyTask, { prefix: '/api/user' })
     app.register(getDailyTasks, { prefix: '/api/user' })
     app.register(getDailyTasksByDay, { prefix: '/api/user' })
-    app.register(createOrUpdateRevenueGoal, { prefix: '/api/user' })
-    app.register(getRevenueGoalsByMonth, { prefix: '/api/user' })
+    app.register(getWeeklyProgress, { prefix: '/api/user' })
 
     await app.listen({ port: 3000 })
   } catch (err) {
@@ -57,4 +58,5 @@ const start = async () => {
   }
 }
 
+startCronJobs()
 start()

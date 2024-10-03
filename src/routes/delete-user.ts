@@ -33,7 +33,7 @@ export const deleteUser: FastifyPluginAsyncZod = async app => {
         },
       })
 
-      reply.send({
+      reply.status(HTTP_STATUS_CODE.OK).send({
         message: 'User deleted successfully',
         user,
       })

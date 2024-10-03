@@ -17,6 +17,9 @@ export const getUsers: FastifyPluginAsyncZod = async app => {
       const skip = (page - 1) * limit
 
       const users = await prisma.user.findMany({
+        where: {
+          role: 'USER',
+        },
         skip,
         take: limit,
         orderBy: {

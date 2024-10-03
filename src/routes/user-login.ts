@@ -46,12 +46,19 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
       const token = app.jwt.sign({
         payload: {
           id,
-          email,
-          name,
         },
       })
 
-      reply.send({ token })
+      reply.send({
+        token,
+        user: {
+          id,
+          name,
+          email,
+          purchaseDate: userExists.purchaseDate,
+          expirationDate: userExists.expirationDate,
+        },
+      })
     }
   )
 }

@@ -35,9 +35,7 @@ export const getDailyTasksByDay: FastifyPluginAsyncZod = async app => {
           userId,
           day,
         },
-        orderBy: {
-          day: 'asc',
-        },
+        orderBy: [{ completed: 'desc' }, { day: 'asc' }],
       })
 
       reply.code(HTTP_STATUS_CODE.OK).send({ dailyTasks })

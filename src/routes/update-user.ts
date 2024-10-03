@@ -21,6 +21,8 @@ export const updateUser: FastifyPluginAsyncZod = async app => {
       const { userId } = request.params
       const { name, email, purchaseDate, expirationDate } = request.body
 
+      console.log(expirationDate)
+
       const userExists = await prisma.user.findUnique({
         where: {
           id: userId,
@@ -39,14 +41,14 @@ export const updateUser: FastifyPluginAsyncZod = async app => {
           id: userId,
         },
         data: {
-          name,
-          email,
-          purchaseDate,
+          name: name || userExists.name,
+          email: email || userExists.email,
+          purchaseDate: purchaseDate || userExists.purchaseDate,
           expirationDate,
         },
       })
 
-      reply.send({
+      reply.status(HTTP_STATUS_CODE.OK).send({
         message: 'User updated successfully',
         user,
       })

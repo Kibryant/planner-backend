@@ -7,6 +7,8 @@ export const updateUserParamsSchema = z.object({
 export const updateUserSchema = z.object({
   name: z.string().min(3).max(255).optional(),
   email: z.string().email().optional(),
-  purchaseDate: z.date().optional(),
-  expirationDate: z.date().optional(),
+  purchaseDate: z.coerce.date().optional(),
+  expirationDate: z.coerce
+    .date()
+    .default(new Date(new Date().setFullYear(new Date().getFullYear() + 1))),
 })
