@@ -1,4 +1,4 @@
-POST https://planner-backend-zeta.vercel.app/api/admin/login
+POST http://localhost:3000/api/admin/login
 Content-Type: application/json
 
 {
