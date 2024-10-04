@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file .env ./src/",
-    "postinstall": "prisma generate",
-    "build": "tsup src/index.ts --minify --dts --format cjs --out-dir dist"
+    "postinstall": "npx prisma generate",
+    "build": "tsup src/index.ts --minify --dts --format cjs --out-dir dist && npx prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
