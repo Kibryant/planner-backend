@@ -16,7 +16,6 @@ import { createUser } from './routes/create-user'
 import { getUsers } from './routes/get-users'
 import { deleteUser } from './routes/delete-user'
 import { updateUser } from './routes/update-user'
-import { startCronJobs } from './lib/cron-job'
 import { completeDailyTask } from './routes/complete-daily-taks'
 import { getWeeklyProgress } from './routes/get-weekly-progess'
 import { createOrUpdateRevenueGoal } from './routes/create-or-update-revenue-goal'
@@ -62,5 +61,4 @@ const start = async () => {
   }
 }
 
-startCronJobs()
 start()
