@@ -19,6 +19,8 @@ import { updateUser } from './routes/update-user'
 import { startCronJobs } from './lib/cron-job'
 import { completeDailyTask } from './routes/complete-daily-taks'
 import { getWeeklyProgress } from './routes/get-weekly-progess'
+import { createOrUpdateRevenueGoal } from './routes/create-or-update-revenue-goal'
+import { getRevenueGoalByMonth } from './routes/get-revenue-goal-by-month'
 
 const app = Fastify({
   logger: true,
@@ -46,6 +48,8 @@ const start = async () => {
 
     app.register(userLogin, { prefix: '/api/user' })
     app.register(createDailyTask, { prefix: '/api/user' })
+    app.register(createOrUpdateRevenueGoal, { prefix: '/api/user' })
+    app.register(getRevenueGoalByMonth, { prefix: '/api/user' })
     app.register(completeDailyTask, { prefix: '/api/user' })
     app.register(getDailyTasks, { prefix: '/api/user' })
     app.register(getDailyTasksByDay, { prefix: '/api/user' })

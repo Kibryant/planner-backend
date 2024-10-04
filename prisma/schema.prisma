@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-    id             String     @id @default(cuid())
+    id             String        @id @default(cuid())
     name           String
-    email          String     @unique
+    email          String        @unique
     password       String
-    role           Role       @default(USER)
+    role           Role          @default(USER)
     postPlan       PostPlan[]
+    revenueGoal    RevenueGoal[]
     purchaseDate   DateTime
     expirationDate DateTime
 }
@@ -30,6 +31,18 @@ model PostPlan {
     updatedAt   DateTime @default(now()) @updatedAt
 }
 
+model RevenueGoal {
+    id          Int      @id @default(autoincrement())
+    month       Month    @unique
+    dailyGoal   String?
+    monthlyGoal String?
+    actions     String[]
+    userId      String
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @default(now()) @updatedAt
+}
+
 enum WeekDay {
     MONDAY
     TUESDAY
@@ -38,6 +51,21 @@ enum WeekDay {
     FRIDAY
     SATURDAY
     SUNDAY
+}
+
+enum Month {
+    JANUARY
+    FEBRUARY
+    MARCH
+    APRIL
+    MAY
+    JUNE
+    JULY
+    AUGUST
+    SEPTEMBER
+    OCTOBER
+    NOVEMBER
+    DECEMBER
 }
 
 enum Role {
