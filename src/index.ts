@@ -37,6 +37,10 @@ const start = async () => {
       secret: env.JWT_SIGNING_KEY,
     })
 
+    app.get('/', async () => {
+      return { hello: 'world' }
+    })
+
     app.setValidatorCompiler(validatorCompiler)
     app.setSerializerCompiler(serializerCompiler)
 
