@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { userLoginSchema } from '../schemas/user-login-schema'
 import { prisma } from '../lib/prisma'
-import { HTTP_STATUS_CODE } from '../types'
+import { sendInvalidCredentials } from '../functions/send-invalid-credentials'
 
 export const userLogin: FastifyPluginAsyncZod = async app => {
   app.post(
@@ -22,9 +22,7 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
       })
 
       if (!userExists) {
-        reply
-          .status(HTTP_STATUS_CODE.BAD_REQUEST)
-          .send({ message: 'Invalid credentials' })
+        sendInvalidCredentials(reply)
         return
       }
 
@@ -34,9 +32,7 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
       )
 
       if (!isPasswordValid) {
-        reply
-          .status(HTTP_STATUS_CODE.BAD_REQUEST)
-          .send({ message: 'Invalid credentials' })
+        sendInvalidCredentials(reply)
         return
       }
 

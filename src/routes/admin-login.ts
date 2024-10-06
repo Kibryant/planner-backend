@@ -1,8 +1,8 @@
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { HTTP_STATUS_CODE } from '../types'
 import { adminLoginSchema } from '../schemas/admin-login-schema'
 import { env } from '../lib/env'
 import { prisma } from '../lib/prisma'
+import { sendInvalidCredentials } from '../functions/send-invalid-credentials'
 
 export const adminLogin: FastifyPluginAsyncZod = async app => {
   app.post(
@@ -15,19 +15,13 @@ export const adminLogin: FastifyPluginAsyncZod = async app => {
     async (req, reply) => {
       const { accessCode, email, password } = req.body
 
-      console.log(accessCode, email, password)
-
       if (accessCode !== env.ADMIN_ACCESS_CODE) {
-        reply
-          .status(HTTP_STATUS_CODE.BAD_REQUEST)
-          .send({ message: 'Invalid access code' })
+        sendInvalidCredentials(reply)
         return
       }
 
       if (email !== env.ADMIN_EMAIL || password !== env.ADMIN_PASSWORD) {
-        reply
-          .status(HTTP_STATUS_CODE.BAD_REQUEST)
-          .send({ message: 'Invalid credentials' })
+        sendInvalidCredentials(reply)
         return
       }
 
@@ -54,9 +48,7 @@ export const adminLogin: FastifyPluginAsyncZod = async app => {
       })
 
       if (!admin) {
-        reply
-          .status(HTTP_STATUS_CODE.BAD_REQUEST)
-          .send({ message: 'Invalid credentials' })
+        sendInvalidCredentials(reply)
         return
       }
 
