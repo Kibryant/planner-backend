@@ -6,7 +6,7 @@ import { deleteAllDailyTasksSchema } from '../schemas/delete-all-daily-tasks-sch
 
 export const deleteAllDailyTasks: FastifyPluginAsyncZod = async app => {
   app.delete(
-    '/delete-all-daily-task',
+    '/delete-all-daily-tasks/:userId',
     {
       schema: {
         params: deleteAllDailyTasksSchema,
