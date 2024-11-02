@@ -11,6 +11,7 @@ import { getWeeklyProgress } from './get-weekly-progess'
 import { updateUser } from './update-user'
 import { userLogin } from './user-login'
 import { completeDailyTask } from './complete-daily-taks'
+import { deleteAllDailyTasksByDay } from './delete-all-daily-tasks-by-day'
 
 export async function registerRoutes(app: FastifyInstance) {
   app.get('/', async (request, reply) => {
@@ -30,4 +31,5 @@ export async function registerRoutes(app: FastifyInstance) {
   app.register(getWeeklyProgress, { prefix: '/api/user' })
   app.register(createOrUpdateRevenueGoal, { prefix: '/api/user' })
   app.register(getRevenueGoalByMonth, { prefix: '/api/user' })
+  app.register(deleteAllDailyTasksByDay, { prefix: '/api/user' })
 }

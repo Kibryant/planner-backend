@@ -2,19 +2,24 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { prisma } from '../lib/prisma'
 import { HTTP_STATUS_CODE } from '../types'
 import { middleware } from '../middleware'
-import { deleteAllDailyTasksSchema } from '../schemas/delete-all-daily-tasks-schema'
+import {
+  deleteAllDailyTasksByDayParamsSchema,
+  deleteAllDailyTasksByDayBodySchema,
+} from '../schemas/delete-all-daily-tasks-schema'
 
-export const deleteAllDailyTasks: FastifyPluginAsyncZod = async app => {
+export const deleteAllDailyTasksByDay: FastifyPluginAsyncZod = async app => {
   app.delete(
     '/delete-all-daily-tasks/:userId',
     {
       schema: {
-        params: deleteAllDailyTasksSchema,
+        params: deleteAllDailyTasksByDayParamsSchema,
+        body: deleteAllDailyTasksByDayBodySchema,
       },
       preHandler: [middleware],
     },
     async (req, reply) => {
       const { userId } = req.params
+      const { day } = req.body
 
       const userExists = await prisma.user.findUnique({
         where: {
@@ -32,6 +37,7 @@ export const deleteAllDailyTasks: FastifyPluginAsyncZod = async app => {
       await prisma.postPlan.deleteMany({
         where: {
           userId,
+          day,
         },
       })
 
