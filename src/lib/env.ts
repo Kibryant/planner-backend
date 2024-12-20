@@ -6,6 +6,7 @@ export const EnvSchema = z.object({
   ADMIN_EMAIL: z.string(),
   ADMIN_PASSWORD: z.string(),
   SECRET_PASSWORD: z.string(),
+  WEBHOOK_HOTTOK_HOTMART: z.string(),
 })
 
 export type Env = z.infer<typeof EnvSchema>

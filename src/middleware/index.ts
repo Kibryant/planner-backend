@@ -19,6 +19,18 @@ export async function middleware(req: FastifyRequest, reply: FastifyReply) {
   }
 }
 
+export async function middlewareHotmart(
+  req: FastifyRequest,
+  reply: FastifyReply
+) {
+  const hottok = req.headers['x-hotmart-hottok']
+
+  if (hottok !== env.WEBHOOK_HOTTOK_HOTMART) {
+    reply.code(HTTP_STATUS_CODE.UNAUTHORIZED).send({ message: 'Unauthorized' })
+    return
+  }
+}
+
 export async function registerMiddlewares(app: FastifyInstance) {
   app.register(fastifyCors, {
     origin: '*',

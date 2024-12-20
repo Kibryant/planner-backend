@@ -12,9 +12,10 @@ import { updateUser } from './update-user'
 import { userLogin } from './user-login'
 import { completeDailyTask } from './complete-daily-taks'
 import { deleteAllDailyTasksByDay } from './delete-all-daily-tasks-by-day'
+import { webhookHotmart } from './webhook-hotmart'
 
 export async function registerRoutes(app: FastifyInstance) {
-  app.get('/', async (request, reply) => {
+  app.get('/', async () => {
     return { hello: 'world' }
   })
 
@@ -32,4 +33,6 @@ export async function registerRoutes(app: FastifyInstance) {
   app.register(createOrUpdateRevenueGoal, { prefix: '/api/user' })
   app.register(getRevenueGoalByMonth, { prefix: '/api/user' })
   app.register(deleteAllDailyTasksByDay, { prefix: '/api/user' })
+
+  app.register(webhookHotmart, { prefix: '/api' })
 }
