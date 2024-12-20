@@ -20,6 +20,20 @@ export const createUser: FastifyPluginAsyncZod = async app => {
       try {
         const { name, email, purchaseDate, expirationDate } = request.body
 
+        const userAlreadyExists = await prisma.user.findFirst({
+          where: {
+            email,
+          },
+        })
+
+        if (userAlreadyExists) {
+          reply
+            .status(HTTP_STATUS_CODE.CONFLICT)
+            .send({ message: 'User already exists' })
+
+          return
+        }
+
         const passwordHash = await bcrypt.hash(SECRET_PASSWORD, 10)
 
         const user = await prisma.user.create({
