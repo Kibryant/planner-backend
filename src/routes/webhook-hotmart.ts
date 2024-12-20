@@ -24,6 +24,20 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
 
         const { name, email } = buyer
 
+        const userAlreadyExists = await prisma.user.findFirst({
+          where: {
+            email,
+          },
+        })
+
+        if (userAlreadyExists) {
+          reply
+            .status(HTTP_STATUS_CODE.CONFLICT)
+            .send({ message: 'User already exists' })
+
+          return
+        }
+
         const purchaseDate = new Date(approved_date)
 
         const expirationDate = new Date(
