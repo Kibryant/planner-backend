@@ -3,7 +3,8 @@ import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { middlewareHotmart } from '../middleware'
 import { prisma } from '../lib/prisma'
 import { env } from '../lib/env'
-import { type DataWebhookHotmart, HTTP_STATUS_CODE } from '../types'
+import { HTTP_STATUS_CODE } from '../types'
+import { bodyWebhookHotmart } from '../schemas/body-webhook-hotmart'
 
 const SECRET_PASSWORD = env.SECRET_PASSWORD
 
@@ -12,10 +13,11 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
     '/webhook-hotmart',
     {
       preHandler: [middlewareHotmart],
+      schema: { body: bodyWebhookHotmart },
     },
     async (request, reply) => {
       try {
-        const { data } = request.body as DataWebhookHotmart
+        const { data } = request.body
 
         const {
           buyer,
@@ -41,7 +43,7 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
         const purchaseDate = new Date(approved_date)
 
         const expirationDate = new Date(
-          new Date().setFullYear(new Date().getFullYear() + 1)
+          purchaseDate.setFullYear(new Date().getFullYear() + 1)
         )
 
         const passwordHash = await bcrypt.hash(SECRET_PASSWORD, 10)
