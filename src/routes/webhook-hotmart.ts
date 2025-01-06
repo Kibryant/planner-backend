@@ -42,9 +42,9 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
 
         const purchaseDate = new Date(approved_date)
 
-        const expirationDate = new Date(
-          purchaseDate.setFullYear(new Date().getFullYear() + 1)
-        )
+        const expirationDate = new Date(purchaseDate)
+
+        expirationDate.setFullYear(expirationDate.getFullYear() + 1)
 
         const passwordHash = await bcrypt.hash(SECRET_PASSWORD, 10)
 
