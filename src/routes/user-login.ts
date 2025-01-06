@@ -1,4 +1,3 @@
-import * as bcrypt from 'bcrypt'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
 import { userLoginSchema } from '../schemas/user-login-schema'
 import { prisma } from '../lib/prisma'
@@ -26,12 +25,7 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
         return
       }
 
-      const isPasswordValid = await bcrypt.compare(
-        password,
-        userExists.password
-      )
-
-      if (!isPasswordValid) {
+      if (userExists.password !== password) {
         sendInvalidCredentials(reply)
         return
       }
