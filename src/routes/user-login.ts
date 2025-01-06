@@ -12,7 +12,7 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
       },
     },
     async (req, reply) => {
-      const { email, password } = req.body
+      const { email } = req.body
 
       const userExists = await prisma.user.findFirst({
         where: {
@@ -21,11 +21,6 @@ export const userLogin: FastifyPluginAsyncZod = async app => {
       })
 
       if (!userExists) {
-        sendInvalidCredentials(reply)
-        return
-      }
-
-      if (userExists.password !== password) {
         sendInvalidCredentials(reply)
         return
       }
