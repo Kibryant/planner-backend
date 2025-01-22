@@ -3,6 +3,7 @@ import { prisma } from '../lib/prisma'
 import { HTTP_STATUS_CODE } from '../types'
 import { middleware } from '../middleware'
 import { CreateRevenueGoalSchema } from '../schemas/create-revenue-goal-schema'
+import { Month } from '@prisma/client'
 
 export const createOrUpdateRevenueGoal: FastifyPluginAsyncZod = async app => {
   app.post(
@@ -27,8 +28,9 @@ export const createOrUpdateRevenueGoal: FastifyPluginAsyncZod = async app => {
         })
       }
 
-      const existingRevenueGoal = await prisma.revenueGoal.findUnique({
+      const existingRevenueGoal = await prisma.revenueGoal.findFirst({
         where: {
+          userId,
           month,
         },
       })
@@ -36,21 +38,19 @@ export const createOrUpdateRevenueGoal: FastifyPluginAsyncZod = async app => {
       if (existingRevenueGoal) {
         let updatedActions = [...existingRevenueGoal.actions]
 
-        // Se actionIndex for enviado, atualize a ação no índice correspondente
         if (typeof actionIndex === 'number') {
           if (action) {
-            updatedActions[actionIndex] = action // Atualize a ação no índice correto
+            updatedActions[actionIndex] = action
           }
         } else if (action) {
-          // Adicione a nova ação ao array e mantenha o limite de 5 ações
           updatedActions = [...updatedActions, action].slice(0, 4)
         }
 
         const updatedRevenueGoal = await prisma.revenueGoal.update({
           where: { id: existingRevenueGoal.id },
           data: {
-            dailyGoal: dailyGoal ?? existingRevenueGoal.dailyGoal,
-            monthlyGoal: monthlyGoal ?? existingRevenueGoal.monthlyGoal,
+            dailyGoal: dailyGoal || existingRevenueGoal.dailyGoal,
+            monthlyGoal: monthlyGoal || existingRevenueGoal.monthlyGoal,
             actions: updatedActions,
           },
           select: {
@@ -68,27 +68,25 @@ export const createOrUpdateRevenueGoal: FastifyPluginAsyncZod = async app => {
         })
       }
 
-      const newRevenueGoal = await prisma.revenueGoal.create({
+      const revenueGoal = await prisma.revenueGoal.create({
         data: {
           userId,
+          month: Month[month],
           dailyGoal,
           monthlyGoal,
-          month,
           actions: action ? [action] : [],
         },
         select: {
-          id: true,
           userId: true,
           dailyGoal: true,
           monthlyGoal: true,
           month: true,
-          actions: true,
         },
       })
 
       return reply.code(HTTP_STATUS_CODE.OK).send({
         message: 'Revenue goal created successfully',
-        revenueGoal: newRevenueGoal,
+        revenueGoal,
       })
     }
   )

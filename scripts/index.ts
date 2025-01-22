@@ -9,7 +9,7 @@ interface User {
   purchaseDate: string
 }
 
-const JSON_FILE_PATH = './scripts/data-2-years.json'
+const JSON_FILE_PATH = './scripts/data.json'
 
 function convertToDate(dateString: string): Date | null {
   try {
@@ -47,12 +47,12 @@ async function addUser(user: User) {
 
   const expirationDate = new Date(purchaseDate)
 
-  expirationDate.setFullYear(expirationDate.getFullYear() + 2)
+  expirationDate.setFullYear(expirationDate.getFullYear() + 1)
 
   await prisma.user.create({
     data: {
-      name: 'Maria francisca dos Santos Gonçalves',
-      email: 'franvip2016@gmail.com',
+      name: user.name,
+      email: user.email.toLowerCase(),
       password: env.SECRET_PASSWORD,
       purchaseDate,
       expirationDate,
@@ -60,29 +60,34 @@ async function addUser(user: User) {
   })
 }
 
+function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function processUsers(users: User[]) {
+  for (const user of users) {
+    console.log(`Adicionando o usuário ${user.email}...`)
+    try {
+      await addUser(user)
+      console.log(`Usuário ${user.email} adicionado com sucesso!`)
+    } catch (error) {
+      console.error(`Erro ao adicionar o usuário ${user.email}:`, error)
+    }
+
+    await delay(1000)
+  }
+}
+
 const jsonData = readJsonFile(JSON_FILE_PATH)
 
-addUser({
-  name: 'Maria francisca dos Santos Gonçalves',
-  email: 'franvip2016@gmail.com',
-  purchaseDate: '18/11/2024 21:41:43',
-})
-
-// if (jsonData) {
-//   for (const user of jsonData) {
-//     setTimeout(() => {
-//       console.log(`Adicionando o usuário ${user.email}...`)
-//     }, 3000)
-
-//     addUser(user)
-//       .then(() => {
-//         console.log(`Usuário ${user.email} adicionado com sucesso!`)
-//       })
-//       .catch(error => {
-//         console.error(`Erro ao adicionar o usuário ${user.email}:`, error)
-//       })
-//       .finally(() => {
-//         prisma.$disconnect()
-//       })
-//   }
-// }
+if (jsonData) {
+  processUsers(jsonData)
+    .then(() => {
+      console.log('Todos os usuários foram processados!')
+      process.exit(0)
+    })
+    .finally(() => {
+      prisma.$disconnect()
+      console.log('Conexão com o banco de dados encerrada!')
+    })
+}

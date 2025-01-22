@@ -34,7 +34,7 @@ model PostPlan {
 
 model RevenueGoal {
     id          Int      @id @default(autoincrement())
-    month       Month    @unique
+    month       Month
     dailyGoal   String?
     monthlyGoal String?
     actions     String[]

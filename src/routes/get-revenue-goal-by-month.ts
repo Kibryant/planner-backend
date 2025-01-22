@@ -11,7 +11,6 @@ export const getRevenueGoalByMonth: FastifyPluginAsyncZod = async app => {
       schema: {
         querystring: getRevenueGoalByMonthSchema,
       },
-      preHandler: [middleware],
     },
     async (req, reply) => {
       const { userId, month } = req.query
@@ -23,18 +22,18 @@ export const getRevenueGoalByMonth: FastifyPluginAsyncZod = async app => {
       })
 
       if (!userExists) {
-        reply.code(HTTP_STATUS_CODE.BAD_REQUEST).send({
+        return reply.code(HTTP_STATUS_CODE.BAD_REQUEST).send({
           message: 'User not found',
         })
-        return
       }
 
-      const revenueGoal = await prisma.revenueGoal.findUnique({
+      const revenueGoal = await prisma.revenueGoal.findFirst({
         where: {
-          userId,
+          userId: userExists.id,
           month,
         },
         select: {
+          userId: true,
           dailyGoal: true,
           monthlyGoal: true,
           month: true,

@@ -1,8 +1,8 @@
-GET http://localhost:3000/api/user/get-revenue-goals-by-month?userId=cm1sc29qa000010pugvmoqka4&month=JANUARY
+GET http://localhost:3000/api/user/get-revenue-goals-by-month?userId=cm1varsjy0000w259c3mrin0c&month=JANUARY
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
 
 
 ###
 
-GET http://localhost:3000/api/user/get-revenue-goals-by-month?userId=cm1sc29qa000010pugvmoqka4&month=FEBRUARY
+GET http://localhost:3000/api/user/get-revenue-goals-by-month?userId=cm1varsjy0000w259c3mrin0c&month=DECEMBER
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImlkIjoiY20xcDRkN2U1MDAwMHE1dWhpc203enAwMiIsImVtYWlsIjoiYXJ0aHVyQGV4YW1wbGUuY29tIiwibmFtZSI6IkFydGh1ciBTaWx2YSJ9LCJpYXQiOjE3Mjc3MTE0Njh9.YryC69av0GN3PXrB3DttfdW23FzNZqlybdmdNx5-l2U
