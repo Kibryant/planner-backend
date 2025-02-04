@@ -4,4 +4,4 @@ node_modules/
 
 scripts/*.json
 
-./docs/
+docs/
