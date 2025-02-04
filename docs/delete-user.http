@@ -1,2 +1,0 @@
-DELETE http://localhost:3000/api/admin/delete-user/cm1p4c6tn0000cyy50xmp7enu
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7ImVtYWlsIjoiYWRtaW4tZGV2ZWxvcG1lbnRAZ21haWwuY29tIn0sImlhdCI6MTcyNzcxNzM5Nn0.mIQvFSD1FrAOIVAKqWJIaoZ0P0hmuVSn73OsfiLm9Hw
