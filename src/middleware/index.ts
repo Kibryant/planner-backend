@@ -41,3 +41,15 @@ export async function registerMiddlewares(app: FastifyInstance) {
     secret: env.JWT_SIGNING_KEY,
   })
 }
+
+export async function middlewareHotmartLatam(
+  req: FastifyRequest,
+  reply: FastifyReply
+) {
+  const hottok = req.headers['x-hotmart-hottok']
+
+  if (hottok !== env.WEBHOOK_HOTTOK_HOTMART_LATAM) {
+    reply.code(HTTP_STATUS_CODE.UNAUTHORIZED).send({ message: 'Unauthorized' })
+    return
+  }
+}

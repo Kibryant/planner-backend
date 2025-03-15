@@ -13,6 +13,7 @@ import { userLogin } from './user-login'
 import { completeDailyTask } from './complete-daily-taks'
 import { deleteAllDailyTasksByDay } from './delete-all-daily-tasks-by-day'
 import { webhookHotmart } from './webhook-hotmart'
+import { webhookHotmartLatam } from './webhook-hotmart-latam'
 
 export async function registerRoutes(app: FastifyInstance) {
   app.get('/', async () => {
@@ -35,4 +36,5 @@ export async function registerRoutes(app: FastifyInstance) {
   app.register(deleteAllDailyTasksByDay, { prefix: '/api/user' })
 
   app.register(webhookHotmart, { prefix: '/api' })
+  app.register(webhookHotmartLatam, { prefix: '/api' })
 }
