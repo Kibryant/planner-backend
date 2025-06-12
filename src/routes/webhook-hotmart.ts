@@ -1,6 +1,5 @@
 import * as bcrypt from 'bcrypt'
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod'
-import { middlewareHotmart } from '../middleware'
 import { prisma } from '../lib/prisma'
 import { env } from '../lib/env'
 import { HTTP_STATUS_CODE } from '../types'
@@ -12,17 +11,13 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
   app.post(
     '/webhook-hotmart',
     {
-      preHandler: [middlewareHotmart],
       schema: { body: bodyWebhookHotmart },
     },
     async (request, reply) => {
       try {
         const { data } = request.body
 
-        const {
-          buyer,
-          purchase: { approved_date },
-        } = data
+        const { customer: buyer, created_at: approved_date } = data
 
         const { name, email } = buyer
 
