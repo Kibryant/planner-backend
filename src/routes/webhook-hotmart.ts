@@ -58,7 +58,7 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
           },
         })
 
-        reply.status(HTTP_STATUS_CODE.CREATED).send(user)
+        reply.code(HTTP_STATUS_CODE.CREATED).send(user)
       } catch (error) {
         reply
           .status(HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR)
