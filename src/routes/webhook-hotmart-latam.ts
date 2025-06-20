@@ -12,13 +12,17 @@ export const webhookHotmartLatam: FastifyPluginAsyncZod = async app => {
   app.post(
     '/webhook-hotmart-latam',
     {
+      preHandler: [middlewareHotmartLatam],
       schema: { body: bodyWebhookHotmart },
     },
     async (request, reply) => {
       try {
         const { data } = request.body
 
-        const { customer: buyer, created_at: approved_date } = data
+        const {
+          buyer,
+          purchase: { approved_date },
+        } = data
 
         const { name, email } = buyer
 
