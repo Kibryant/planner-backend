@@ -40,9 +40,9 @@ export const webhookHotmartLatam: FastifyPluginAsyncZod = async app => {
           return
         }
 
-        const purchaseDate = new Date(approved_date)
+        const purchaseDate = new Date()
 
-        const expirationDate = new Date(purchaseDate)
+        const expirationDate = new Date()
 
         expirationDate.setFullYear(expirationDate.getFullYear() + 1)
 
