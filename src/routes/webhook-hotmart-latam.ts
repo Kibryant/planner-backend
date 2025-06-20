@@ -13,7 +13,6 @@ export const webhookHotmartLatam: FastifyPluginAsyncZod = async app => {
     '/webhook-hotmart-latam',
     {
       preHandler: [middlewareHotmartLatam],
-      schema: { body: bodyWebhookHotmart },
     },
     async (request, reply) => {
       try {

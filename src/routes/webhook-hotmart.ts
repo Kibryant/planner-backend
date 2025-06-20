@@ -4,7 +4,6 @@ import { middlewareHotmart } from '../middleware'
 import { prisma } from '../lib/prisma'
 import { env } from '../lib/env'
 import { HTTP_STATUS_CODE } from '../types'
-import { bodyWebhookHotmart } from '../schemas/body-webhook-hotmart'
 
 const SECRET_PASSWORD = env.SECRET_PASSWORD
 
@@ -13,7 +12,6 @@ export const webhookHotmart: FastifyPluginAsyncZod = async app => {
     '/webhook-hotmart',
     {
       preHandler: [middlewareHotmart],
-      schema: { body: bodyWebhookHotmart },
     },
     async (request, reply) => {
       try {
